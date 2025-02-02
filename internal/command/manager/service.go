@@ -2,8 +2,8 @@ package manager
 
 import "path/filepath"
 
-// NewPluginService to set up the plugin service
-func NewPluginService(placeholder, storagePath string) IManager {
+// NewManagerService to set up the plugin manager service
+func NewManagerService(placeholder, storagePath string) IManager {
 	return &SManager{
 		placeholder: placeholder,
 		storagePath: storagePath,

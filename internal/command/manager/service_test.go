@@ -5,9 +5,9 @@ import (
 	"testing"
 )
 
-func TestNewPluginService(t *testing.T) {
+func TestNewManagerService(t *testing.T) {
 	t.Run("should return a new instance of Plugin service", func(t *testing.T) {
-		service := NewPluginService("plugin", "/home/user/.service")
+		service := NewManagerService("plugin", "/home/user/.service")
 		assert.NotNil(t, service)
 		assert.IsType(t, &SManager{}, service)
 		assert.Equal(t, service.GetPluginsPath(), "/home/user/.service/plugin")

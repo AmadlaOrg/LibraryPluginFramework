@@ -2,6 +2,7 @@ package manager
 
 import (
 	"github.com/AmadlaOrg/LibraryPluginFramework/internal/command/manager"
+	"github.com/spf13/cobra"
 )
 
 // New attaches command for adding/removing/updating plugins (and for HERY)
@@ -16,6 +17,6 @@ import (
 // - storagePath = /home/user/.doorman/
 // With those values the complete absolute path to where the plugins will be stored will be:
 // - /home/user/.doorman/clerk/
-func New(placeholder, storagePath string) {
-	manager.NewPluginService(placeholder, storagePath)
+func New(cmd *cobra.Command, placeholder, storagePath string, runPluginManager manager.RunPluginManager) manager.IManager {
+	manager.NewManagerService(placeholder, storagePath)
 }
