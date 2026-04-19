@@ -13,10 +13,10 @@ import (
 // - 💾 storagePath - Is the absolute path to where the plugins directory (the name of the directory is taken from 🖼️ placeholder) is stored
 //
 // Example:
-// - placeholder = clerk
+// - placeholder = plugin
 // - storagePath = /home/user/.doorman/
 // With those values the complete absolute path to where the plugins will be stored will be:
-// - /home/user/.doorman/clerk/
-func New(cmd *cobra.Command, placeholder, storagePath string, runPluginManager manager.RunPluginManager) manager.IManager {
-	manager.NewManagerService(placeholder, storagePath)
+// - /home/user/.doorman/plugin/
+func New(cmd *cobra.Command, placeholder, storagePath string, runPluginManager manager.RunPluginManager) manager.Manager {
+	return manager.New(placeholder, storagePath)
 }

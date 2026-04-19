@@ -2,25 +2,25 @@ package amadla
 
 import "github.com/spf13/cobra"
 
-type IAmadla interface {
+type Amadla interface {
 	Supported() map[string]any
 	Cmd() *cobra.Command
 	AmadlaCmd() *cobra.Command
 }
 
-type SAmadla struct {
+type amadlaImpl struct {
 	supportedApplications map[string]string
 	supportedEntities     map[string]string
 	amadlaCmd             *cobra.Command
 }
 
 // Cmd
-func (s *SAmadla) Cmd() *cobra.Command {
+func (s *amadlaImpl) Cmd() *cobra.Command {
 	return s.amadlaCmd
 }
 
 // Supported
-func (s *SAmadla) Supported() map[string]any {
+func (s *amadlaImpl) Supported() map[string]any {
 	// Set default values if needed
 	s.processSupportedApplications()
 
@@ -31,21 +31,21 @@ func (s *SAmadla) Supported() map[string]any {
 }
 
 // AmadlaCmd
-func (s *SAmadla) AmadlaCmd() *cobra.Command {
+func (s *amadlaImpl) AmadlaCmd() *cobra.Command {
 	return s.amadlaCmd
 }
 
 // processSupportedApplications
-func (s *SAmadla) processSupportedApplications() {
+func (s *amadlaImpl) processSupportedApplications() {
 	var (
 		heryPresent  bool
 		judgePresent bool
 	)
 
 	for appName, appVersion := range s.supportedApplications {
-		if s.supportedEntities[appName] == "hery" && appVersion != "" {
+		if appName == "hery" && appVersion != "" {
 			heryPresent = true
-		} else if s.supportedEntities[appName] == "judge" && appVersion != "" {
+		} else if appName == "judge" && appVersion != "" {
 			judgePresent = true
 		}
 	}

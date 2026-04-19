@@ -1,26 +1,28 @@
 package amadla
 
 import (
-	"github.com/AmadlaOrg/LibraryAuditFramework/internal/display"
+	"github.com/AmadlaOrg/LibraryJudgeFramework/display"
 	"github.com/spf13/cobra"
 )
 
 // NewAmadlaService to set up the amadla service
-func NewAmadlaService(supportedApplications, supportedEntities map[string]string) IAmadla {
-	amadla := &SAmadla{
+func New(supportedApplications, supportedEntities map[string]string) Amadla {
+	amadla := &amadlaImpl{
 		supportedApplications: supportedApplications,
 		supportedEntities:     supportedEntities,
 		amadlaCmd: &cobra.Command{
 			Use:   "amadla",
 			Short: "Amadla supported applications and entities",
-			Long:  `Displays in JSON (--json|-j), YAML (--yaml|-y) or table (default) format the supported applications and entities.`,
+			Long:  `Displays the supported applications and entities. Use -o json|yaml|table to control output format.`,
 		},
 	}
 
 	amadla.amadlaCmd.Run = func(cmd *cobra.Command, args []string) {
-		display.NewDisplayService(cmd, amadla.Supported()).
+		if err := display.New(cmd, amadla.Supported()).
 			SetTableHeaders([]string{"Category", "Supported", "Version Supported"}).
-			Display()
+			Display(); err != nil {
+			cmd.PrintErrln(err)
+		}
 	}
 
 	return amadla

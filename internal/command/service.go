@@ -9,7 +9,7 @@ import (
 func NewCommandService(cmd *cobra.Command,
 	supportedApplications, supportedEntities map[string]string,
 ) {
-	amadlaService := amadla.NewAmadlaService(supportedApplications, supportedEntities)
+	amadlaService := amadla.New(supportedApplications, supportedEntities)
 
 	cmd.AddCommand(amadlaService.AmadlaCmd())
 }
